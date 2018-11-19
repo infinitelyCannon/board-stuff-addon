@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WebSocket Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="public/css/materialize.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .nav-wrapper h3{
+            margin: 0;
+        }
+        #emptyHand{
+            width: 100vw;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        #blankCard{
+            height: 270px;
+            width: 180px;
+            background-color: rgba(0, 0, 0, 0.47);
+        }
+        #cardInfo{
+            align-self: flex-end;
+        }
+        #hand{
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: scroll;
+        }
+        #hand::after{
+            content: "\00a0";
+        }
+        .game-card{
+            margin: 10px 20px;
+        }
+        .game-card img{
+            width: 180px;
+            cursor: pointer;
+        }
+        .game-card.active{
+            border: 5px solid black;
+            border-radius: 10px;
+        }
+        @media screen and (min-width: 600px){
+            #hand{
+                flex-wrap: wrap;
+                overflow-x: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        var socket;
+        var gameData = {
+            connected: false,
+            player: ""
+        };
+
+        function SocketTest(){
+            socket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port);
+
+            socket.onopen = function(){
+                console.log("Connection established.");
+            }
+
+            socket.onmessage = function(event){
+                console.log("Recieved:");
+                console.log(event.data);
+            }
+
+            socket.onclose = function(){
+                console.log("Connection closed");
+            }
+        }
+    </script>
+    <script src="public/js/bundle.js"></script>
+    <script src="public/js/materialize.min.js"></script>
+</body>
+</html>

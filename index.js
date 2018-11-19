@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const expressWs = require('express-ws')(app, undefined, {wsOptions: {clientTracking: true}});
 const path = require('path');
+const _ = require('lodash');
 let CLIENTS = [];
 
 app.use((req, res, next) => {
@@ -51,6 +52,14 @@ app.ws('/', (ws, req) => {
         else{
             console.log("Returning: " + obj);
             ws.send(obj);
+        }
+    });
+    ws.on('close', () => {
+        for(let i = 0; i < CLIENTS.length; i++){
+            if(CLIENTS[i].client.readyState == 3){
+                CLIENTS = _.filter(CLIENTS, (n, idx) => {return idx != i});
+                console.log("Removed connection from server.");
+            }
         }
     });
 });

@@ -42,7 +42,7 @@ class App extends React.Component{
         var app = this;
 
         this.setState({
-            socket: Object.assign(new WebSocket("wss://" + window.location.hostname + ":" + window.location.port), {
+            socket: Object.assign(new WebSocket((window.location.protocol.search('s') == -1 ? "ws://" : "wss://") + window.location.hostname + ":" + window.location.port), {
                 onopen: function(){
                     console.log("React Connected");
                 },

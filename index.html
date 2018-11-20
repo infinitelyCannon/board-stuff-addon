@@ -62,7 +62,7 @@
         };
 
         function SocketTest(){
-            socket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port);
+            socket = new WebSocket("wss://" + window.location.hostname + ":" + window.location.port);
 
             socket.onopen = function(){
                 console.log("Connection established.");

@@ -4,6 +4,7 @@ const expressWs = require('express-ws')(app, undefined, {wsOptions: {clientTrack
 const path = require('path');
 const _ = require('lodash');
 let CLIENTS = [];
+const PORT = process.env.PORT || 5000;
 
 app.use((req, res, next) => {
     //console.log('middleware');
@@ -106,4 +107,4 @@ function sendAll(message){
     }
 }
 
-app.listen(3000, () => console.log("App listening on port 3000"));
+app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
